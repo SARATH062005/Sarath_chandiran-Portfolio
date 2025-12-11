@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarath Chandiran | Robotics Engineer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwind-config.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Virtual Cursor -->
+    <div id="virtual-cursor"></div>
+
+    <!-- Gesture Instructions Overlay -->
+    <div id="gesture-instructions">
+        <h2 class="text-2xl font-orbitron text-cyan mb-6">Gesture Controls Active</h2>
+        <div class="grid grid-cols-2 gap-8 text-left">
+            <div class="flex flex-col items-center">
+                <i class="fas fa-hand-point-up gesture-icon"></i>
+                <p class="font-bold">1 Finger</p>
+                <p class="text-sm text-gray-400">Move Cursor</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <i class="fas fa-hand-peace gesture-icon"></i>
+                <p class="font-bold">3 Fingers</p>
+                <p class="text-sm text-gray-400">Click Element</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <i class="fas fa-hand-rock gesture-icon"></i>
+                <p class="font-bold">Closed Fist</p>
+                <p class="text-sm text-gray-400">Scroll Down</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <i class="fas fa-hand-paper gesture-icon"></i>
+                <p class="font-bold">5 Fingers</p>
+                <p class="text-sm text-gray-400">Scroll Up</p>
+            </div>
+        </div>
+        <button id="close-instructions" class="mt-6 px-6 py-2 border border-cyan text-cyan rounded hover:bg-cyan hover:text-black transition">Got it</button>
+    </div>
+
+    <!-- 3D Background -->
+    <div id="canvas-container"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 p-4 glass-card rounded-none border-t-0 border-x-0 bg-black/70">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#home" class="flex items-center gap-3 group">
+                <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-cyan group-hover:shadow-[0_0_15px_#00f3ff] transition-all duration-300">
+                    <img src="assets/images/100031359.jpeg" alt="Sarath Chandiran" class="w-full h-full object-cover">
+                </div>
+                <div class="hidden sm:block">
+                    <h1 class="font-orbitron font-bold text-lg leading-none">Sarath Chandiran</h1>
+                    <span class="text-xs text-cyan font-rajdhani tracking-wider">ROBOTICS ENGINEER</span>
+                </div>
+            </a>
+            <div class="hidden md:flex space-x-8 text-lg font-rajdhani font-medium">
+                <a href="#about" class="hover:text-cyan transition-colors">About</a>
+                <a href="#skills" class="hover:text-cyan transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-cyan transition-colors">Projects</a>
+                <a href="#experience" class="hover:text-cyan transition-colors">Experience</a>
+                <a href="#contact" class="hover:text-cyan transition-colors">Contact</a>
+            </div>
+            <div class="md:hidden flex items-center gap-4">
+                <button id="hamburger" aria-label="Open menu" class="p-2 rounded border border-gray-600">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-black/80 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto p-4 flex flex-col gap-3">
+                <a href="#about" class="py-2">About</a>
+                <a href="#skills" class="py-2">Skills</a>
+                <a href="#projects" class="py-2">Projects</a>
+                <a href="#experience" class="py-2">Experience</a>
+                <a href="#contact" class="py-2">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative z-10 pt-28 md:pt-20">
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center px-4 pt-10">
+            <div class="text-center max-w-4xl">
+                <div class="inline-block px-3 py-1 mb-4 border border-cyan text-cyan text-sm font-orbitron tracking-wider rounded-full gs-reveal">
+                    ROS2 SPECIALIST & CV DEVELOPER
+                </div>
+                <h1 class="text-4xl sm:text-6xl md:text-8xl font-bold font-orbitron mb-6 leading-tight gs-reveal">SARATH CHANDIRAN M</h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto gs-reveal">
+                    Building the future of Autonomous Systems. <br> Robotics | Computer Vision | Industrial Automation
+                </p>
+                <div class="flex justify-center gap-4 gs-reveal">
+                    <a href="#projects" class="px-8 py-3 bg-cyan text-black font-bold rounded hover:bg-white transition-colors font-orbitron">View Projects</a>
+                    <a href="#contact" class="px-8 py-3 border border-cyan text-cyan font-bold rounded hover:bg-cyan/10 transition-colors font-orbitron">Contact Me</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 px-4">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                <div class="glass-card p-8 gs-reveal">
+                    <h2 class="text-3xl font-orbitron mb-6 text-cyan">About Me</h2>
+                    <p class="text-lg text-gray-300 mb-4 leading-relaxed">
+                        I am a Robotics & Automation Engineer specializing in ROS2, Computer Vision, and Autonomous Systems. With a strong background in industrial automation (PLC) and deep learning, I bridge the gap between hardware and intelligent software.
+                    </p>
+                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                        I am also the <strong>Co-founder of Nexomation</strong>, where I actively build robotics solutions and deliver technical training.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="bg-white/5 p-4 rounded border-l-2 border-cyan">
+                            <h3 class="font-bold text-xl">500+ Days</h3>
+                            <p class="text-sm text-gray-400">German Learning Streak</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded border-l-2 border-cyan">
+                            <h3 class="font-bold text-xl">86%</h3>
+                            <p class="text-sm text-gray-400">B.E. Robotics & Automation</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Highlights Grid -->
+                <div class="grid grid-cols-1 gap-4 gs-reveal">
+                    <div class="glass-card p-4 flex items-center gap-4">
+                        <i class="fas fa-robot text-3xl text-cyan"></i>
+                        <div>
+                            <h4 class="font-bold">Autonomous Systems</h4>
+                            <p class="text-sm text-gray-400">Expert in ROS2, Nav2, Gazebo & RViz</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 flex items-center gap-4">
+                        <i class="fas fa-eye text-3xl text-cyan"></i>
+                        <div>
+                            <h4 class="font-bold">Computer Vision</h4>
+                            <p class="text-sm text-gray-400">YOLO, OpenCV, PyTorch, EfficientNet</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 flex items-center gap-4">
+                        <i class="fas fa-industry text-3xl text-cyan"></i>
+                        <div>
+                            <h4 class="font-bold">Industrial Automation</h4>
+                            <p class="text-sm text-gray-400">Siemens/ABB PLCs, TwinCAT Vision</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 flex items-center gap-4">
+                        <i class="fas fa-microchip text-3xl text-cyan"></i>
+                        <div>
+                            <h4 class="font-bold">Hardware Design</h4>
+                            <p class="text-sm text-gray-400">PCB Design (Altium/EasyEDA) & 3D CAD</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 px-4 bg-black/30">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-4xl font-orbitron mb-12 text-center">Technical <span class="text-cyan">Arsenal</span></h2>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Robotics -->
+                    <div class="glass-card p-6 gs-reveal">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                            <i class="fas fa-robot text-cyan"></i> Robotics
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-tag">ROS2 Foxy/Humble</span>
+                            <span class="tech-tag">Gazebo</span>
+                            <span class="tech-tag">Nav2</span>
+                            <span class="tech-tag">SLAM</span>
+                            <span class="tech-tag">LiDAR Integration</span>
+                            <span class="tech-tag">Quadruped Sim</span>
+                        </div>
+                    </div>
+
+                    <!-- CV & AI -->
+                    <div class="glass-card p-6 gs-reveal">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                            <i class="fas fa-brain text-cyan"></i> AI & Vision
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-tag">OpenCV</span>
+                            <span class="tech-tag">PyTorch</span>
+                            <span class="tech-tag">YOLO (v5-v11)</span>
+                            <span class="tech-tag">EfficientNet</span>
+                            <span class="tech-tag">TwinCAT Vision</span>
+                            <span class="tech-tag">Annotation</span>
+                        </div>
+                    </div>
+
+                    <!-- Industrial -->
+                    <div class="glass-card p-6 gs-reveal">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                            <i class="fas fa-cogs text-cyan"></i> Automation
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-tag">Siemens PLC</span>
+                            <span class="tech-tag">ABB PLC</span>
+                            <span class="tech-tag">Factory I/O</span>
+                            <span class="tech-tag">SolidWorks</span>
+                            <span class="tech-tag">CNC Code</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 px-4">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-4xl font-orbitron mb-12 text-center">Featured <span class="text-cyan">Projects</span></h2>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Project 1 -->
+                    <div class="glass-card p-6 flex flex-col group gs-reveal">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-cyan transition-colors">M.A.I.D Delivery Robot</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Autonomous two-wheel drive delivery robot for symposiums using ROS2 navigation stack.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">ROS2</span>
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">R-Pi</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/SARATH062005/ROS2_4_wheel" class="project-link btn-primary"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" class="project-link btn-secondary"><i class="fas fa-play"></i> Demo</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="glass-card p-6 flex flex-col group gs-reveal">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-cyan transition-colors">Quadruped Simulation</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Simulated open-source quadruped, validated navigation stack, and environment mapping.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">Gazebo</span>
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">Nav2</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="#" class="project-link btn-primary"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" class="project-link btn-secondary"><i class="fas fa-video"></i> Watch</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="glass-card p-6 flex flex-col group gs-reveal">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-cyan transition-colors">Warehouse Delivery Bot</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Patent Project. 500 kg payload delivery robot. Designed entire mechanical structure.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">SolidWorks</span>
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">Mech Design</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="#" class="project-link btn-primary"><i class="fas fa-cube"></i> 3D Model</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="glass-card p-6 flex flex-col group gs-reveal">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-cyan transition-colors">52-Class Card Detection</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Built and trained a classifier recognizing 52 playing-card classes using Deep Learning.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">EfficientNet</span>
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">MobileNetV3</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="#" class="project-link btn-primary"><i class="fab fa-github"></i> Code</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 5 -->
+                    <div class="glass-card p-6 flex flex-col group gs-reveal">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-cyan transition-colors">Surface Cleaning Robot</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Autonomous water debris collection. Designed mechanical structure and custom PCB.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">PCB Design</span>
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">AutoCAD</span>
+                        </div>
+                         <div class="flex gap-3">
+                            <a href="#" class="project-link btn-secondary"><i class="fas fa-file-alt"></i> Docs</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 6 -->
+                    <div class="glass-card p-6 flex flex-col group gs-reveal">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-cyan transition-colors">PLC Automation</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Conveyor and lift control logic with industrial simulation using Siemens PLC.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">Siemens PLC</span>
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">Factory I/O</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="#" class="project-link btn-primary"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" class="project-link btn-secondary"><i class="fas fa-play"></i> Sim</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 7 -->
+                    <div class="glass-card p-6 flex flex-col group gs-reveal">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-cyan transition-colors">Yarn Thread Defect Detection</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Computer Vision pipeline for detecting thin yarn/thread defects using custom dataset, OpenCV preprocessing, and deep learning model inference.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">OpenCV</span>
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">YOLO</span>
+                            <span class="text-xs border border-white/20 px-2 py-1 rounded">Python</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="#" class="project-link btn-primary"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" class="project-link btn-secondary"><i class="fas fa-image"></i> Demo</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Experience & Internships -->
+        <section id="experience" class="py-20 px-4 bg-black/30">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-orbitron mb-12 text-center">Professional <span class="text-cyan">Journey</span></h2>
+                
+                <div class="relative pl-8 space-y-12">
+                    <div class="timeline-line bg-cyan/50"></div>
+
+                    <!-- Current -->
+                    <div class="relative gs-reveal">
+                        <div class="absolute -left-10 top-1 w-4 h-4 rounded-full bg-cyan shadow-[0_0_10px_#00f3ff]"></div>
+                        <h3 class="text-2xl font-bold text-white">Co-founder</h3>
+                        <span class="text-cyan font-orbitron text-sm">Nexomation | Present</span>
+                        <p class="text-gray-300 mt-2">Actively building robotics solutions and delivering technical training. Lead instructor for Deep Learning with Computer Vision.</p>
+                    </div>
+
+                    <!-- Internship 1 -->
+                    <div class="relative gs-reveal">
+                        <div class="absolute -left-10 top-1 w-4 h-4 rounded-full bg-gray-600 border border-cyan"></div>
+                        <h3 class="text-xl font-bold text-white">Computer Vision Intern</h3>
+                        <span class="text-cyan font-orbitron text-sm">Griffyn Robotech (Pune) | 6 Months</span>
+                        <p class="text-gray-400 mt-2">Developed OpenCV pipelines for robotics and real-time image processing.</p>
+                    </div>
+
+                    <!-- Internship 2 -->
+                    <div class="relative gs-reveal">
+                        <div class="absolute -left-10 top-1 w-4 h-4 rounded-full bg-gray-600 border border-cyan"></div>
+                        <h3 class="text-xl font-bold text-white">ROS Developer Intern</h3>
+                        <span class="text-cyan font-orbitron text-sm">Karthikesh Robotics | 1 Month</span>
+                        <p class="text-gray-400 mt-2">ROS2 package development, autonomous navigation, and Gazebo simulation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 px-4">
+            <div class="max-w-4xl mx-auto glass-card p-12 text-center gs-reveal">
+                <h2 class="text-4xl font-orbitron mb-6">Let's Build the Future</h2>
+                <p class="text-gray-300 mb-8 max-w-xl mx-auto">
+                    Interested in Autonomous Robots, Deep Learning, or Industrial Automation? I'm always open to discussing new projects and opportunities.
+                </p>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+                    <a href="mailto:sarathchandiran@gmail.com" class="flex items-center gap-2 px-8 py-4 bg-cyan text-black font-bold rounded hover:bg-white transition-all">
+                        <i class="fas fa-envelope"></i> sarathchandiran@gmail.com
+                    </a>
+                    <div class="flex gap-4">
+                        <a href="https://www.linkedin.com/in/sarath-chandiran-m-07a850257/" class="w-12 h-12 flex items-center justify-center rounded-full border border-gray-500 hover:border-cyan hover:text-cyan transition-colors">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                        <a href="https://github.com/SARATH062005" class="w-12 h-12 flex items-center justify-center rounded-full border border-gray-500 hover:border-cyan hover:text-cyan transition-colors">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-8 text-sm text-gray-500">
+                    <p>India</p>
+                    <p>&copy; 2026 Sarath Chandiran</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Hand-Scroll UI -->
+    <div id="hand-scroll-ui" class="fixed right-4 bottom-4 z-50 flex items-center gap-3">
+        <button id="hand-scroll-toggle" class="px-3 py-2 rounded glass-card btn-secondary text-sm">Enable Gesture Control</button>
+        <div id="hand-preview" class="w-32 h-24 bg-black/60 rounded border border-cyan hidden relative">
+            <video id="input_video" autoplay playsinline muted style="width:100%;height:100%;object-fit:cover;transform:scaleX(-1)"></video>
+            <canvas id="hand-canvas" class="absolute top-0 left-0 w-full h-full" style="transform:scaleX(-1)"></canvas>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- MediaPipe -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+
+    <!-- Custom Logic -->
+    <script src="js/app.js"></script> <!-- Loads first to set globals -->
+    <script src="js/background.js"></script>
+    <script src="js/gestures.js"></script>
+</body>
+</html>
