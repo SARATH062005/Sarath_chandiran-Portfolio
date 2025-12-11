@@ -1,13 +1,31 @@
+:root{
+    --bg: #0b0808;
+    --fg: #ffffff;
+    --accent: #00f3ff;
+    --muted: #333;
+    --glass: rgba(255,255,255,0.03);
+    --glassBorder: rgba(255,255,255,0.06);
+}
+
 html {
     scroll-behavior: smooth;
     cursor: default;
+    /* fluid base font-size for scalable/accessible typography */
+    font-size: clamp(14px, 1.2vw + 10px, 18px);
 }
 body {
-    background-color: #0b0808;
-    color: #ffffff;
+    background-color: var(--bg);
+    color: var(--fg);
     font-family: 'Rajdhani', sans-serif;
     overflow-x: hidden;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
 }
+
+/* Layout helpers */
+.container{ max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+.section{ padding: clamp(1rem, 2vw, 3rem) 0; }
+
 
 /* 3D Container - touch-action none prevents scroll interference on mobile canvas */
 #canvas-container {
@@ -23,12 +41,13 @@ body {
     backdrop-filter: blur(10px);
     border: 1px solid var(--glassBorder);
     border-radius: 12px;
-    transition: all 0.3s ease;
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    padding: 1rem;
 }
 .glass-card:hover {
-    border-color: #00f3ff;
-    box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
-    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 6px 30px rgba(0, 243, 255, 0.08);
+    transform: translateY(-6px);
 }
 
 /* Buttons & Tags / UI Elements */
@@ -40,7 +59,7 @@ body {
 .project-link {
     font-family: 'Orbitron', sans-serif; font-size: 0.75rem;
     display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.5rem 1rem; border-radius: 4px; transition: all 0.2s;
+    padding: 0.5rem 1rem; border-radius: 4px; transition: transform 120ms ease, background 120ms ease;
 }
 .btn-primary { background-color: rgba(0, 243, 255, 0.2); color: #00f3ff; border: 1px solid #00f3ff; }
 .btn-primary:hover { background-color: #00f3ff; color: black; }
@@ -50,41 +69,53 @@ body {
 /* Timeline */
 .timeline-line {
     position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
-    background: linear-gradient(180deg, #00f3ff 0%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(180deg, var(--accent) 0%, rgba(0,0,0,0) 100%);
 }
 
 /* Virtual Cursor */
+/* Virtual Cursor (hidden on touch devices) */
 #virtual-cursor {
     position: fixed; width: 20px; height: 20px;
     background-color: rgba(0, 243, 255, 0.6);
-    border: 2px solid #00f3ff; border-radius: 50%;
+    border: 2px solid var(--accent); border-radius: 50%;
     pointer-events: none; z-index: 9999;
     transform: translate(-50%, -50%); display: none;
-    box-shadow: 0 0 15px #00f3ff; transition: background-color 0.2s, transform 0.12s;
+    box-shadow: 0 0 15px var(--accent); transition: background-color 0.2s, transform 0.12s;
 }
 #virtual-cursor.clicking {
     background-color: #ff0055; border-color: #ff0055;
     transform: translate(-50%, -50%) scale(0.8);
 }
 
+/* Hide virtual cursor for touch/poor-hover devices */
+@media (hover: none), (pointer: coarse) {
+    #virtual-cursor { display: none !important; }
+}
+
 /* Instructions / Gesture modal */
 #gesture-instructions {
     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    background: rgba(0,0,0,0.9); border: 1px solid #00f3ff;
+    background: rgba(0,0,0,0.9); border: 1px solid var(--accent);
     padding: 2rem; border-radius: 12px; z-index: 10000;
-    display: none; text-align: center; width: min(90%, 720px);
+    display: none; text-align: center; width: min(92%, 720px);
 }
-.gesture-icon { font-size: 2rem; margin-bottom: 0.5rem; color: #00f3ff; }
+.gesture-icon { font-size: 2rem; margin-bottom: 0.5rem; color: var(--accent); }
+
+/* Make gesture modal less intrusive on small screens */
+@media (max-width: 520px){
+    #gesture-instructions{ padding: 1rem; width: min(96%, 360px); }
+    .gesture-icon { font-size: 1.6rem; }
+}
 
 /* Debug Overlay */
 #debug-overlay {
     position: fixed; left: 12px; bottom: 12px; z-index: 10001;
-    background: rgba(0,0,0,0.7); color: #fff; padding: 8px 10px;
+    background: rgba(0,0,0,0.7); color: var(--fg); padding: 8px 10px;
     border-radius: 8px; font-size: 12px;
     border: 1px solid rgba(255,255,255,0.06); max-width: 320px;
     display: none; /* Hidden by default, toggled via JS */
 }
-#debug-overlay b { color: #00f3ff; }
+#debug-overlay b { color: var(--accent); }
 
 /* Hand Preview & Mirroring */
 #hand-preview video, #hand-preview canvas { width: 100%; height: 100%; object-fit: cover; }
@@ -96,18 +127,36 @@ body {
 /* Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #050505; }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #00f3ff; }
+::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 /* Responsiveness */
+/* Breakpoints */
+@media (max-width: 1024px){
+    .container{ padding: 0 1rem; }
+}
 @media (max-width: 768px) {
-    h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
+    h1 { font-size: clamp(1.6rem, 6.5vw, 2.8rem); }
     #virtual-cursor { width: 16px; height: 16px; }
-    .glass-card { border-radius: 10px; }
+    .glass-card { border-radius: 10px; padding: 0.75rem; }
     nav { padding: 0.75rem; }
+    .project-link{ width:100%; justify-content: center; }
+}
+@media (max-width: 520px){
+    h1 { font-size: clamp(1.4rem, 7.5vw, 2.2rem); }
+    .tech-tag{ font-size: 0.8rem; padding: 3px 8px; }
+    .project-link{ gap: 0.4rem; padding: 0.4rem 0.75rem; }
 }
 @media (max-width: 420px) {
     #canvas-container { display: none; }
+    .gesture-icon { font-size: 1.4rem; }
+    .timeline-line{ left: 8px; }
 }
+
 #mobile-menu { display: none; }
 #mobile-menu.open { display: block; }
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce){
+    * { transition: none !important; animation: none !important; }
+}
