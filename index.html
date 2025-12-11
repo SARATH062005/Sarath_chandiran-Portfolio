@@ -74,6 +74,9 @@
 
         /* center README-like block content if inserted-to-page */
         .center-block { text-align:center; }
+
+        /* Ensure front camera preview is mirrored visually */
+        #input_video { transform: scaleX(-1); -webkit-transform: scaleX(-1); }
     </style>
 </head>
 <body>
@@ -236,8 +239,8 @@
     <div id="hand-scroll-ui" class="fixed right-4 bottom-4 z-50 flex items-center gap-3">
         <button id="hand-scroll-toggle" class="px-3 py-2 rounded glass-card text-sm">Enable Gesture Control</button>
         <div id="hand-preview" class="w-32 h-24 bg-black/60 rounded border border-cyan hidden relative">
-            <video id="input_video" autoplay playsinline muted style="width:100%;height:100%;object-fit:cover;transform:scaleX(-1)"></video>
-            <canvas id="hand-canvas" class="absolute top-0 left-0 w-full h-full" style="transform:scaleX(-1)"></canvas>
+            <video id="input_video" autoplay playsinline muted style="width:100%;height:100%;object-fit:cover;"></video>
+            <canvas id="hand-canvas" class="absolute top-0 left-0 w-full h-full"></canvas>
         </div>
     </div>
 
@@ -491,7 +494,8 @@
             console.warn('Not secure context for camera. Use HTTPS or localhost.');
         }
 
-        const camConstraints = isMobile ? { width: 320, height: 240, facingMode: 'environment' } : { width: 640, height: 480, facingMode: 'user' };
+        // === IMPORTANT CHANGE: use front camera ('user') on mobile ===
+        const camConstraints = isMobile ? { width: 320, height: 240, facingMode: 'user' } : { width: 640, height: 480, facingMode: 'user' };
 
         try {
             // Request permission explicitly with chosen constraints
@@ -511,7 +515,7 @@
             });
             cameraObj.start();
 
-            dbgCamera.innerText = 'Stream OK';
+            dbgCamera.innerText = 'Stream OK (front camera)';
             return true;
         } catch (err) {
             console.error('getUserMedia error:', err);
